@@ -719,3 +719,56 @@ export default async function Page() {
 4. 使用 `Main` 组件渲染这些文章列表。
 
 如果还有疑问，或需要更深入的讲解，欢迎继续提问！
+
+
+## 现在这个报错是怎么回事，找不到模块“contentlayer/generated”或其相应的类型声明
+
+从您的截图来看，`contentlayer/generated` 模块无法找到。这个错误通常是因为 Contentlayer 的生成文件没有被创建，或者是配置不正确。
+
+这里有几个解决方法，您可以尝试以下步骤：
+
+### 1. 确保安装了 Contentlayer
+首先，检查一下是否已经安装了 Contentlayer。打开终端并运行以下命令：
+
+```bash
+npm install contentlayer
+# 或者使用 yarn
+yarn add contentlayer
+```
+
+### 2. 运行 Contentlayer 命令生成文件
+Contentlayer 需要生成文件才能使用。例如，`contentlayer/generated` 是 Contentlayer 自动生成的文件夹。您可以运行以下命令来生成这些文件：
+
+```bash
+npx contentlayer build
+```
+
+运行此命令后，Contentlayer 会扫描内容并生成文件，然后您可以重新启动应用程序。
+
+### 3. 检查 `tsconfig.json` 配置
+确保 `tsconfig.json` 文件中包含 `contentlayer` 的类型声明。可以在 `tsconfig.json` 中添加以下内容：
+
+```json
+{
+  "compilerOptions": {
+    "types": ["contentlayer/generated"]
+  }
+}
+```
+
+### 4. 确保文件路径和导入路径正确
+有时路径问题也会导致找不到模块。确保 `contentlayer/generated` 文件夹路径是正确的，导入路径使用了正确的相对或绝对路径。
+
+### 5. 重启开发服务器
+有时即使修复了问题，Next.js 仍然会缓存错误的依赖关系。尝试停止开发服务器，然后重新启动：
+
+```bash
+npm run dev
+# 或者
+yarn dev
+```
+
+### 6. 查看 Contentlayer 文档
+如果以上方法仍然无法解决问题，您可以参考 Contentlayer 的文档，确保您的配置文件和使用方法符合要求：[Contentlayer 文档](https://www.contentlayer.dev/)
+
+希望这些步骤可以帮助您解决问题！
